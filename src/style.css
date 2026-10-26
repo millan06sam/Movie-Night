@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 16px;
+  color: #222;
+  background: #fff;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: 32px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.search-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+}
+
+input,
+button {
+  padding: 10px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid #444;
+  outline-offset: 3px;
+}
+
+section {
+  margin-top: 32px;
+}
+
+#status {
+  line-height: 1.5;
+}
+
+.error {
+  color: #a21b1b;
+  font-weight: 700;
+}
+
+#results {
+  display: grid;
+  gap: 16px;
+}
+
+.movie-card {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+
+.movie-card h3 {
+  margin-top: 0;
+}
+
+.movie-card p {
+  line-height: 1.5;
+}
+
+.movie-poster,
+.poster-placeholder {
+  width: 96px;
+  height: 144px;
+  object-fit: cover;
+  background: #eee;
+}
+
+.poster-placeholder {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 8px;
+  text-align: center;
+  font-size: 13px;
+}
+
+footer {
+  margin-top: 32px;
+  font-size: 12px;
+  line-height: 1.5;
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Night · Movie Finder</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Movie Night</h1>
+        <p>Find something worth watching.</p>
+      </header>
+      <form id="search-form">
+        <label for="movie-query">Movie title</label>
+        <div class="search-controls">
+          <input id="movie-query" name="query" type="search" placeholder="For example, Spirited Away" maxlength="100" required />
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      <section aria-labelledby="results-heading">
+        <h2 id="results-heading">Search results</h2>
+        <div id="status" role="status"></div>
+        <div id="results"></div>
+      </section>
+      <footer aria-label="Credits">
+        <p>Movie data and posters from <a href="https://www.themoviedb.org/">TMDB</a>.</p>
+        <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
