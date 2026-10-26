@@ -46,6 +46,7 @@ export function renderStatus(message, isError = false) {
 
 export function setLoading(isLoading) {
   results.setAttribute("aria-busy", String(isLoading));
+  status.classList.toggle("loading", isLoading);
 }
 
 export function clearResults() {
@@ -78,15 +79,21 @@ export function renderMovies(movies) {
     }
 
     const details = document.createElement("div");
+    details.classList.add("movie-details");
     const title = document.createElement("h3");
     title.textContent = movie.title;
     const metadata = document.createElement("p");
+    metadata.classList.add("movie-meta");
     const year = movie.year ?? "Year unknown";
     const rating = movie.rating === null ? "Not rated" : `${movie.rating.toFixed(1)} / 10`;
     metadata.textContent = `${year} · ${rating}`;
     const overview = document.createElement("p");
     overview.textContent = movie.overview;
-    details.append(title, metadata, overview);
+    const synopsis = document.createElement("details");
+    const summary = document.createElement("summary");
+    summary.textContent = "Read synopsis";
+    synopsis.append(summary, overview);
+    details.append(title, metadata, synopsis);
     card.append(details);
     fragment.append(card);
   }
