@@ -23,3 +23,20 @@ export function filterMovies(movies, { year = null, minimumRating = 0 } = {}) {
     return matchesYear && matchesRating;
   });
 }
+
+export function summarizeRatings(movies) {
+  const totals = movies.reduce((summary, movie) => {
+    if (Number.isFinite(movie.rating) && movie.rating >= 0 && movie.rating <= 10) {
+      summary.ratedCount++;
+      summary.ratingSum += movie.rating;
+    }
+
+    return summary;
+  }, { ratedCount: 0, ratingSum: 0 });
+
+  return {
+    ratedCount: totals.ratedCount,
+    unratedCount: movies.length - totals.ratedCount,
+    averageRating: totals.ratedCount === 0 ? null : totals.ratingSum / totals.ratedCount,
+  };
+}

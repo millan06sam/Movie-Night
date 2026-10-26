@@ -44,6 +44,24 @@
           <p>Filters apply to the first page of results already loaded.</p>
         </fieldset>
         <div id="status" role="status"></div>
+        <div id="rating-summary" hidden>
+          <h3>Ratings of displayed movies</h3>
+          <dl class="rating-totals">
+            <div>
+              <dt>Average rating</dt>
+              <dd id="average-rating">Not available</dd>
+            </div>
+            <div>
+              <dt>Rated movies</dt>
+              <dd id="rated-count">0</dd>
+            </div>
+            <div>
+              <dt>Unrated movies</dt>
+              <dd id="unrated-count">0</dd>
+            </div>
+          </dl>
+          <p>Each rated movie counts equally. Unrated movies are excluded from the average.</p>
+        </div>
         <div id="results"></div>
       </section>
       <footer aria-label="Credits">

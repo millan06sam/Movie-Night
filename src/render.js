@@ -3,6 +3,18 @@ const results = document.querySelector("#results");
 const filters = document.querySelector("#filters");
 const yearFilter = document.querySelector("#year-filter");
 const ratingFilter = document.querySelector("#rating-filter");
+const ratingSummary = document.querySelector("#rating-summary");
+const averageRating = document.querySelector("#average-rating");
+const ratedCount = document.querySelector("#rated-count");
+const unratedCount = document.querySelector("#unrated-count");
+
+export function renderRatingSummary(summary) {
+  ratingSummary.hidden = summary === null;
+  averageRating.textContent = summary === null || summary.averageRating === null
+    ? "Not available" : `${summary.averageRating.toFixed(1)} / 10`;
+  ratedCount.textContent = summary?.ratedCount ?? 0;
+  unratedCount.textContent = summary?.unratedCount ?? 0;
+}
 
 export function renderFilterOptions(movies) {
   const years = [...new Set(movies.map(movie => movie.year))]
@@ -38,6 +50,7 @@ export function setLoading(isLoading) {
 
 export function clearResults() {
   results.replaceChildren();
+  renderRatingSummary(null);
 }
 
 export function renderMovies(movies) {

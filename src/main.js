@@ -1,7 +1,7 @@
 import "./style.css";
 import { searchMovies } from "./api.js";
-import { normalizeMovies, filterMovies } from "./logic.js";
-import { renderStatus, renderMovies, clearResults, setLoading, renderFilterOptions } from "./render.js";
+import { normalizeMovies, filterMovies, summarizeRatings } from "./logic.js";
+import { renderStatus, renderMovies, clearResults, setLoading, renderFilterOptions, renderRatingSummary } from "./render.js";
 
 const searchForm = document.querySelector("#search-form");
 const queryInput = document.querySelector("#movie-query");
@@ -17,6 +17,7 @@ function updateResults() {
   const minimumRating = Number(ratingFilter.value);
   const visibleMovies = filterMovies(loadedMovies, { year, minimumRating });
   renderMovies(visibleMovies);
+  renderRatingSummary(visibleMovies.length === 0 ? null : summarizeRatings(visibleMovies));
 
   if (loadedMovies.length === 0) {
     renderStatus(`No movies found for "${loadedQuery}". Try another title.`);
