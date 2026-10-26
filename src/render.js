@@ -1,5 +1,29 @@
 const status = document.querySelector("#status");
 const results = document.querySelector("#results");
+const filters = document.querySelector("#filters");
+const yearFilter = document.querySelector("#year-filter");
+const ratingFilter = document.querySelector("#rating-filter");
+
+export function renderFilterOptions(movies) {
+  const years = [...new Set(movies.map(movie => movie.year))]
+    .filter(year => year !== null)
+    .sort((first, second) => second - first);
+  const anyYear = document.createElement("option");
+  anyYear.value = "";
+  anyYear.textContent = "Any year";
+  yearFilter.replaceChildren(anyYear);
+
+  for (const year of years) {
+    const option = document.createElement("option");
+    option.value = String(year);
+    option.textContent = year;
+    yearFilter.append(option);
+  }
+
+  yearFilter.value = "";
+  ratingFilter.value = "0";
+  filters.disabled = movies.length === 0;
+}
 
 export function renderStatus(message, isError = false) {
   const paragraph = document.createElement("p");

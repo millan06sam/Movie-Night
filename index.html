@@ -20,6 +20,29 @@
       </form>
       <section aria-labelledby="results-heading">
         <h2 id="results-heading">Search results</h2>
+        <fieldset id="filters" disabled>
+          <legend>Filter loaded results</legend>
+          <div class="filter-controls">
+            <div>
+              <label for="year-filter">Release year</label>
+              <select id="year-filter">
+                <option value="">Any year</option>
+              </select>
+            </div>
+            <div>
+              <label for="rating-filter">Minimum rating</label>
+              <select id="rating-filter">
+                <option value="0">Any rating (including unrated)</option>
+                <option value="5">5 / 10</option>
+                <option value="6">6 / 10</option>
+                <option value="7">7 / 10</option>
+                <option value="8">8 / 10</option>
+                <option value="9">9 / 10</option>
+              </select>
+            </div>
+          </div>
+          <p>Filters apply to the first page of results already loaded.</p>
+        </fieldset>
         <div id="status" role="status"></div>
         <div id="results"></div>
       </section>

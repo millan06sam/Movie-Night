@@ -14,3 +14,12 @@ export function normalizeMovies(results) {
         ? `https://image.tmdb.org/t/p/w342${movie.poster_path}` : null,
     }));
 }
+
+export function filterMovies(movies, { year = null, minimumRating = 0 } = {}) {
+  return movies.filter(movie => {
+    const matchesYear = year === null || movie.year === year;
+    const matchesRating = minimumRating === 0
+      || (movie.rating !== null && movie.rating >= minimumRating);
+    return matchesYear && matchesRating;
+  });
+}
