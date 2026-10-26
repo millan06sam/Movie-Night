@@ -1,5 +1,6 @@
 import "./style.css";
 import { searchMovies } from "./api.js";
+import { readCachedSearch, writeCachedSearch } from "./cache.js";
 import { normalizeMovies, filterMovies, summarizeRatings } from "./logic.js";
 import { renderStatus, renderMovies, clearResults, setLoading, renderFilterOptions, renderRatingSummary } from "./render.js";
 
@@ -11,6 +12,7 @@ const ratingFilter = document.querySelector("#rating-filter");
 let activeRequest = null;
 let loadedMovies = [];
 let loadedQuery = "";
+let loadedFromCache = false;
 
 function updateResults() {
   const year = yearFilter.value === "" ? null : Number(yearFilter.value);
@@ -18,13 +20,14 @@ function updateResults() {
   const visibleMovies = filterMovies(loadedMovies, { year, minimumRating });
   renderMovies(visibleMovies);
   renderRatingSummary(visibleMovies.length === 0 ? null : summarizeRatings(visibleMovies));
+  const source = loadedFromCache ? "Loaded from a saved search." : "Fetched from TMDB.";
 
   if (loadedMovies.length === 0) {
-    renderStatus(`No movies found for "${loadedQuery}". Try another title.`);
+    renderStatus(`No movies found for "${loadedQuery}". Try another title. ${source}`);
   } else if (visibleMovies.length === 0) {
-    renderStatus("No loaded movies match these filters. Try another year or a lower rating.");
+    renderStatus(`No loaded movies match these filters. Try another year or a lower rating. ${source}`);
   } else {
-    renderStatus(`Showing ${visibleMovies.length} of ${loadedMovies.length} loaded movies for "${loadedQuery}".`);
+    renderStatus(`Showing ${visibleMovies.length} of ${loadedMovies.length} loaded movies for "${loadedQuery}". ${source}`);
   }
 }
 
@@ -36,6 +39,7 @@ async function handleSearch(event) {
   const query = queryInput.value.trim();
   loadedMovies = [];
   loadedQuery = query;
+  loadedFromCache = false;
   renderFilterOptions(loadedMovies);
   clearResults();
 
@@ -49,7 +53,18 @@ async function handleSearch(event) {
   renderStatus(`Searching for "${query}"…`);
 
   try {
-    const results = await searchMovies(query, controller.signal);
+    let results = readCachedSearch(query);
+    loadedFromCache = results !== null;
+
+    if (!loadedFromCache) {
+      results = await searchMovies(query, controller.signal);
+
+      if (controller !== activeRequest) {
+        return;
+      }
+
+      writeCachedSearch(query, results);
+    }
 
     if (controller !== activeRequest) {
       return;
