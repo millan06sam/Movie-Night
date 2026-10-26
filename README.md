@@ -2,17 +2,55 @@
 
 Movie finder for M2 · Async Odyssey.
 
+## Requirements
+
+- Node.js 24 and npm.
+- A TMDB account with an API Read Access Token.
+
 ## Run locally
 
-npm install
-npm run dev
+1. Clone the repository and open its folder in a terminal.
+2. Install dependencies:
 
-Open the local URL printed by Vite. Unlike M1, do not open index.html by double-clicking.
+   ```sh
+   npm install
+   ```
 
-## Production build
+3. Copy `.env.example` to a new file named `.env.local`.
+4. Add your TMDB API Read Access Token:
 
+   ```dotenv
+   TMDB_READ_ACCESS_TOKEN=your_read_access_token_here
+   ```
+
+   Obtain your token from https://www.themoviedb.org/settings/api.
+   Never commit `.env.local` or share your token.
+
+5. Start the development server:
+
+   ```sh
+   npm run dev
+   ```
+
+6. Open the localhost URL printed in the terminal.
+
+Restart the server after changing `.env.local`.
+
+The app requires the Vite server because it provides the API bridge
+to TMDB. Opening index.html directly will not work.
+
+## Build and preview
+
+```sh
 npm run build
 npm run preview
+```
+
+Open the URL printed by the preview server.
+
+Uploading only the dist folder to static hosting will not provide
+the API bridge. A deployed version would also need a server-side
+endpoint for TMDB requests.
 
 ## Uso de IA
 
@@ -41,6 +79,7 @@ someone sends a POST
 I want the messages to be things a normal user could understand, but still useful to me while debugging. Also, should my server pass TMDB's status code straight through, or translate it?
 Make sure you explain yourself clearly step by step.
 
+The last prompt I used was to help create a easy to follow guide for people to use the website aswell. Its actually furhter up in the README. 
 
 ## Autopsia
 
